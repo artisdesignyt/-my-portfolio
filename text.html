@@ -1,0 +1,405 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your Name — Portfolio</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* =====================
+       Variables & Reset
+       ===================== */
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent1:#6ee7b7; /* mint */
+      --accent2:#60a5fa; /* sky */
+      --accent3:#f472b6; /* pink */
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --max-width:1100px;
+      --container-pad:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Arial,Helvetica,sans-serif;
+      background:radial-gradient(1200px 600px at 10% 10%, rgba(96,165,250,0.08), transparent),
+                 radial-gradient(900px 400px at 90% 90%, rgba(244,114,182,0.06), transparent),
+                 var(--bg);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max-width);margin:0 auto;padding:var(--container-pad)}/* =====================
+   Header/Nav
+   ===================== */
+header{backdrop-filter: blur(6px);position:sticky;top:12px;z-index:40;padding:8px;border-radius:12px;margin:12px auto;max-width:calc(var(--max-width) - 48px);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#032;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+nav ul{display:flex;gap:12px;align-items:center;margin:0;padding:0;list-style:none}
+nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px}
+nav a:hover{color:var(--accent2);transform:translateY(-3px)}
+.cta{background:linear-gradient(90deg,var(--accent2),var(--accent1));padding:8px 14px;border-radius:10px;color:#012;font-weight:700}
+
+/* ==============
+   Hero
+   ============== */
+.hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;padding:48px 0}
+.hero-left{padding:14px}
+.name{font-size:38px;font-weight:800;letter-spacing:-0.02em;margin:0}
+.tag{color:var(--muted);margin:10px 0 18px;font-weight:600}
+.intro{font-size:16px;color:var(--muted);max-width:56ch}
+.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.avatar{width:100%;height:100%;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,var(--accent3),transparent);display:flex;align-items:center;justify-content:center}
+.avatar img{width:100%;height:100%;object-fit:cover}
+
+/* Buttons row */
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:10px 14px;border-radius:12px;font-weight:700;display:inline-flex;gap:8px;align-items:center}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* ==============
+   Sections common
+   ============== */
+section{padding:48px 0}
+h2{margin:0 0 16px;font-size:20px}
+.glass{background:var(--glass);padding:18px;border-radius:var(--radius);box-shadow:0 8px 30px rgba(2,6,23,0.45)}
+
+/* ==============
+   Thumbnails grid
+   ============== */
+.grid{display:grid;gap:14px}
+.thumb-grid{grid-template-columns:repeat(3,1fr)}
+.thumb{border-radius:12px;overflow:hidden;position:relative;background:#071021;cursor:pointer;min-height:160px}
+.thumb .meta{position:absolute;left:12px;bottom:12px;color:white;font-weight:700;padding:6px 10px;border-radius:10px;background:linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));backdrop-filter: blur(6px)}
+
+/* ==============
+   Modal / Lightbox
+   ============== */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
+.modal.open{display:flex}
+.modal .frame{max-width:900px;width:95%;border-radius:12px;overflow:hidden}
+
+/* ==============
+   Videos
+   ============== */
+.video-grid{grid-template-columns:repeat(2,1fr)}
+.video-card{border-radius:12px;overflow:hidden;background:#031022;min-height:220px;display:flex;align-items:center;justify-content:center}
+
+/* ==============
+   Experience timeline (blank editable)
+   ============== */
+.timeline{display:flex;flex-direction:column;gap:12px}
+.exp-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:12px}
+
+/* ==============
+   Contact & Footer
+   ============== */
+.socials{display:flex;gap:12px;align-items:center}
+.soc{width:48px;height:48px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);cursor:pointer}
+
+/* ==============
+   Responsive
+   ============== */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;}
+  .thumb-grid{grid-template-columns:repeat(2,1fr)}
+  .video-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  nav ul{display:none}
+  header{padding:10px}
+  .thumb-grid{grid-template-columns:1fr}
+  .name{font-size:28px}
+}
+
+/* ==============
+   Micro animations
+   ============== */
+.fade-in{opacity:0;transform:translateY(8px);transition:opacity 560ms cubic-bezier(.2,.9,.2,1),transform 560ms}
+.fade-in.show{opacity:1;transform:none}
+.hover-zoom{transition:transform 360ms cubic-bezier(.2,.9,.2,1)}
+.hover-zoom:hover{transform:translateY(-6px) scale(1.02)}
+
+/* typing effect */
+.typing{display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid rgba(255,255,255,0.12);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">YN</div>
+        <div>
+          <div style="font-weight:800">Your Name</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">Designer • Creator • Developer</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact" class="cta">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>  <main class="container">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-left fade-in" data-delay="80">
+        <h1 class="name">Hello, I am <span style="background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent">Your Name</span></h1>
+        <div class="tag">I build beautiful web experiences • <span id="typed" class="typing">Creative Developer</span></div>
+        <p class="intro">[Add a short 2-line bio here — leave this placeholder and customize when you paste into Blogger. Mention your specialty, e.g., web design, video, content creation.]</p>
+        <div style="height:12px"></div>
+        <div class="row">
+          <a class="btn cta" href="#portfolio">View Portfolio</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+        <div style="height:18px"></div>
+        <div class="glass" style="display:flex;gap:12px;align-items:center">
+          <div style="flex:1">
+            <div style="font-weight:700">Available for:</div>
+            <div style="color:var(--muted);font-size:13px">Freelance • Collaborations • Content Work</div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);text-align:right">Based in: <strong style="color:var(--accent1)">[Your City]</strong></div>
+        </div>
+      </div><div class="hero-right hero-card fade-in" data-delay="160">
+    <div class="avatar hover-zoom">
+      <!-- Placeholder avatar image: replace with your hosted image in Blogger -->
+      <img src="https://via.placeholder.com/480x480.png?text=Your+Photo" alt="Your photo">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container glass fade-in" data-delay="80">
+    <h2>About Me</h2>
+    <p style="color:var(--muted)">[Write an extended bio here. Leave placeholder for now to customize later.]</p>
+    <div style="height:14px"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div class="glass" style="padding:12px;text-align:center">
+        <div style="font-weight:700">Design</div>
+        <div style="color:var(--muted);font-size:13px">UX/UI, branding, visual design</div>
+      </div>
+      <div class="glass" style="padding:12px;text-align:center">
+        <div style="font-weight:700">Development</div>
+        <div style="color:var(--muted);font-size:13px">HTML, CSS, JS — responsive sites</div>
+      </div>
+      <div class="glass" style="padding:12px;text-align:center">
+        <div style="font-weight:700">Content</div>
+        <div style="color:var(--muted);font-size:13px">Video, social growth, storytelling</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO / THUMBNAILS -->
+<section id="portfolio">
+  <div class="container">
+    <h2>Portfolio — Thumbnails</h2>
+    <p style="color:var(--muted);margin-top:6px">Click any thumbnail to view a larger preview. Replace placeholders with your images when customizing.</p>
+    <div class="grid thumb-grid" style="margin-top:18px">
+      <!-- Example thumbnails: replace src with your project images -->
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+1" data-title="Project One">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+1" alt="thumb">
+        <div class="meta">Project 1</div>
+      </div>
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+2" data-title="Project Two">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+2" alt="thumb">
+        <div class="meta">Project 2</div>
+      </div>
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+3" data-title="Project Three">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+3" alt="thumb">
+        <div class="meta">Project 3</div>
+      </div>
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+4" data-title="Project Four">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+4" alt="thumb">
+        <div class="meta">Project 4</div>
+      </div>
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+5" data-title="Project Five">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+5" alt="thumb">
+        <div class="meta">Project 5</div>
+      </div>
+      <div class="thumb hover-zoom" data-src="https://via.placeholder.com/1200x800.png?text=Project+6" data-title="Project Six">
+        <img src="https://via.placeholder.com/600x360.png?text=Thumb+6" alt="thumb">
+        <div class="meta">Project 6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="modal" aria-hidden="true">
+    <div class="frame glass" role="dialog" aria-modal="true">
+      <div style="padding:12px;display:flex;align-items:center;justify-content:space-between">
+        <strong id="lb-title">Project</strong>
+        <button id="lb-close" aria-label="Close" style="background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer">✕</button>
+      </div>
+      <div style="background:#000;padding:8px">
+        <img id="lb-img" src="" alt="preview" style="width:100%;height:auto;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="container">
+    <h2>Videos</h2>
+    <p style="color:var(--muted)">This section is left intentionally blank for you to add YouTube/Vimeo embedded iframes. Use the provided cards as placeholders.</p>
+    <div class="grid video-grid" style="margin-top:18px;gap:14px">
+      <div class="video-card glass">
+        <!-- Leave iframe blank / placeholder so you can paste your video embed later -->
+        <!-- Example placeholder below: replace src with your video embed URL -->
+        <div style="text-align:center;color:var(--muted)">Video Placeholder — paste iframe here</div>
+      </div>
+      <div class="video-card glass">
+        <div style="text-align:center;color:var(--muted)">Video Placeholder — paste iframe here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container glass">
+    <h2>Experience</h2>
+    <p style="color:var(--muted)">Timeline/cards are intentionally left blank so you can customize roles, dates and descriptions.</p>
+    <div class="timeline" style="margin-top:12px">
+      <div class="exp-card">[Add role/company/date here — customizable card]</div>
+      <div class="exp-card">[Add role/company/date here — customizable card]</div>
+      <div class="exp-card">[Add role/company/date here — customizable card]</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container glass">
+    <h2>Contact</h2>
+    <p style="color:var(--muted)">Reach out on social or send an email. Replace links and numbers below with your own.</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px">
+        <div style="font-weight:700">Email</div>
+        <div style="color:var(--muted);margin-bottom:8px">youremail@example.com</div>
+        <div style="font-weight:700">Phone / WhatsApp</div>
+        <div style="color:var(--muted)">+91 90000 00000</div>
+      </div>
+
+      <div style="min-width:220px">
+        <div style="font-weight:700;margin-bottom:8px">Social</div>
+        <div class="socials">
+          <!-- YouTube -->
+          <a class="soc" href="https://youtube.com/" target="_blank" aria-label="YouTube">
+            <!-- svg icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2s-.2-1.7-.8-2.5c-.8-1.1-1.7-1.1-2.1-1.2C16.5 2 12 2 12 2h-.1s-4.5 0-8.6.5c-.4 0-1.3.1-2.1 1.2C.6 4.5.5 6.2.5 6.2S0 8.1 0 10v4c0 1.9.5 3.8.5 3.8s.2 1.7.8 2.5c.8 1.1 1.9 1.1 2.4 1.3 1.8.2 7.4.5 7.4.5s4.5 0 8.6-.5c.4 0 1.3-.1 2.1-1.2.6-.8.8-2.5.8-2.5S24 15.9 24 14v-4c0-1.9-.5-3.8-.5-3.8z" fill="white" opacity="0.9"/><path d="M9.8 15.5V8.5l6.5 3.5-6.5 3.5z" fill="#d32"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a class="soc" href="https://wa.me/919000000000" target="_blank" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.5 3.5A11 11 0 1 0 12 23a11 11 0 0 0 8.5-19.5z" fill="white" opacity="0.06"/><path d="M17.2 14.2c-.3-.2-1.6-.8-1.9-.9-.3-.1-.5-.2-.8.2-.3.4-1 1-1.2 1.2-.2.2-.4.3-.7.1-1.9-.9-3.3-3.5-3.6-3.9-.2-.4 0-.6.1-.8.1-.2.3-.5.4-.7.1-.2.1-.4 0-.6-.1-.1-.8-1.9-1.1-2.6-.3-.7-.7-.5-.9-.5-.2 0-.4 0-.7 0-.3 0-.6.1-.9.4-.3.3-1 1-.9 2.4.1 1.3.9 2.7 2 3.6 1.4 1.1 2.6 1.5 3.1 1.6.5.1 1.1.1 1.6-.1.5-.2 1.6-.6 1.8-.9.2-.3.2-.6.1-.8-.1-.2-.3-.3-.6-.5z" fill="#25D366"/></svg>
+          </a>
+
+          <!-- Instagram -->
+          <a class="soc" href="https://instagram.com/" target="_blank" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" fill="white" opacity="0.06"/><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" fill="#f09433"/><path d="M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z" fill="#bc2a8d"/><circle cx="17.5" cy="6.5" r="1.2" fill="#e1306c"/></svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:18px 0;text-align:center;color:var(--muted)">
+  <div>© <span id="yr"></span> Your Name — All rights reserved.</div>
+</footer>
+
+  </main>  <script>
+    // =====================
+    // Small helper utilities
+    // =====================
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Scroll smooth for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href = a.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      })
+    });
+
+    // Simple typing effect for placeholder text
+    (function typing(){
+      const el = document.getElementById('typed');
+      const words = ['Creative Developer','UI Designer','Content Creator','Freelancer'];
+      let i=0, j=0, forward=true;
+      function step(){
+        el.textContent = words[i].slice(0,j);
+        if(forward){
+          if(j++ === words[i].length){ forward=false; setTimeout(step,900); return }
+        } else {
+          if(j-- === 0){ forward=true; i=(i+1)%words.length }
+        }
+        setTimeout(step,100 + Math.random()*80);
+      }
+      step();
+    })();
+
+    // Scroll reveal (adds .show after element enters viewport)
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(entry =>{
+        if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target) }
+      })
+    }, {threshold:0.12});
+    document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+    // Lightbox behavior for thumbnails
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    document.querySelectorAll('.thumb').forEach(t =>{
+      t.addEventListener('click', ()=>{
+        const src = t.dataset.src || t.querySelector('img').src;
+        const title = t.dataset.title || '';
+        lbImg.src = src;
+        lbTitle.textContent = title;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+      })
+    });
+    document.getElementById('lb-close').addEventListener('click', ()=>{ lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true'); });
+    lightbox.addEventListener('click', e=>{ if(e.target===lightbox) { lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true'); } });
+
+    // Small improvement: keyboard close
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') lightbox.classList.remove('open'); });
+
+    // Accessibility: prevent tab trap when modal closed
+
+    // NOTE: All places with placeholders are intentionally left for you to customize in Blogger:
+    // - Avatar image (replace src)
+    // - Thumbnail images (replace src and data-src)
+    // - Video iframes (paste YouTube iframes into .video-card)
+    // - Email, phone, social links
+    // - About, Experience content
+
+  </script></body>
+</html>
